@@ -3,10 +3,12 @@ package main.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import main.dao.ICajaDAO;
 import main.dto.Caja;
 
+@Service
 public class CajaService implements ICajaService {
 
 	@Autowired
