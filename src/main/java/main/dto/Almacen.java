@@ -4,12 +4,15 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -30,18 +33,16 @@ public class Almacen {
 	@JoinColumn(name="codigo")
 	private List<Caja> cajas;
 
-	public Almacen(Long id, String lugar, int capacidad) {
-		this.codigo = id;
+	public Almacen(Long codigo, String lugar, int capacidad, List<Caja> cajas) {
+		super();
+		this.codigo = codigo;
 		this.lugar = lugar;
 		this.capacidad = capacidad;
-	}
-	
-	public Almacen() {
-		// TODO Auto-generated constructor stub
+		this.cajas = cajas;
 	}
 
-	public Long getCodigo() {
-		return codigo;
+	public Almacen() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getLugar() {
@@ -58,6 +59,20 @@ public class Almacen {
 
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
+	}
+	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "Caja")
+	public List<Caja> getCajas() {
+		return cajas;
+	}
+
+	public void setCajas(List<Caja> cajas) {
+		this.cajas = cajas;
+	}
+
+	public Long getCodigo() {
+		return codigo;
 	}
 
 	@Override
